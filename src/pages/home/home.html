@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Prochains passages</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+<div *ngFor = "let station of stations">
+  <ion-card>
+		<ion-card-header>
+	   <ion-item>
+			 <p>
+         {{ station.name }}
+       </p>
+
+	   </ion-item>
+		</ion-card-header>
+		<ion-card-content>
+        <p>	Direction : {{ station.direction }} </p>
+		</ion-card-content>
+	</ion-card>
+</div>
+</ion-content>
