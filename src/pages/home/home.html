@@ -19,13 +19,30 @@
     <ion-card>
       <ion-card-header>
         <ion-item>
-          <p>
-            Direction : {{ station.direction }}
-          </p>
+          <p>Direction : {{ station.direction }}</p>
 
         </ion-item>
       </ion-card-header>
       <div *ngFor="let passage of station.prochainPassage">
+        <ion-card-content>
+          <p> Prochain passage à : {{passage | date: 'HH:mm'}}</p>
+        </ion-card-content>
+      </div>
+    </ion-card>
+
+  </div>
+
+  <div *ngIf="stationRetour">
+    <ion-card>
+      <ion-card-header>
+        <ion-item>
+          <p>
+            Direction : {{ stationRetour.direction }}
+          </p>
+
+        </ion-item>
+      </ion-card-header>
+      <div *ngFor="let passage of stationRetour.prochainPassage">
         <ion-card-content>
           <p> Prochain passage à : {{passage | date: 'HH:mm'}}</p>
         </ion-card-content>

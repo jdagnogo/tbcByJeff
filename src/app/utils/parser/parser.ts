@@ -1,10 +1,10 @@
 import { Station } from '../../model/model';
 export class Parser {
-private static Nb_PASSAGE:number = 5;
+private static Nb_PASSAGE:number = 3;
   constructor() { }
 
-  public parse(obj: string): Station {
-    let schedule: any = this.parseSchedules(obj, 0);
+  public parse(obj: string,i:number): Station {
+    let schedule: any = this.parseSchedules(obj, i);
     let nom = this.parseName(schedule);
     let dates = this.parseDate(schedule);
     let direction = this.parseDirection(schedule);
