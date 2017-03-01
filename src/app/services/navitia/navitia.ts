@@ -8,11 +8,11 @@ import { Station } from '../../model/model';
 @Injectable()
 export class NavitiaService {
   private baseStopArea = 'stop_areas/stop_area:';
-  private baseUrl = 'https://api.navitia.io/v1/coverage/fr-sw/stop_areas/stop_area:OBX:SA:BERGO/stop_schedules';
+  private baseUrl = 'https://api.navitia.io/v1/coverage/fr-sw/stop_areas/stop_area:OBX:SA:NICOL/stop_schedules';
   private bergonie_url = '';
 
   private API_Key = '5f25d1a6-635f-4d67-bfe4-ec013661252f';
-  //https://api.navitia.io/v1/coverage/fr-sw/stop_areas/stop_area:OBX:SA:BERGO/stop_schedules
+  //https://api.navitia.io/v1/coverage/fr-sw/stop_areas/stop_area:OBX:SA:NICOL/stop_schedules
   private headers: Headers;
   constructor(private http: Http) {
     this.headers = new Headers();

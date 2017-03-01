@@ -1,19 +1,26 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <div *ngIf="station">
+      <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Prochains passages</ion-title>
+      <ion-title>{{ station.nom }}</ion-title>
+    </div>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
   <div *ngIf="station">
     <ion-card>
       <ion-card-header>
         <ion-item>
           <p>
-            {{ station.nom }} ,direction : {{ station.direction }}
+            Direction : {{ station.direction }}
           </p>
 
         </ion-item>
@@ -26,4 +33,6 @@
     </ion-card>
 
   </div>
+
+
 </ion-content>

@@ -26,4 +26,13 @@ export class HomePage {
       error => console.log(error),
       () => console.log('Get all Stations complete'));
   }
+
+  doRefresh(refresher) {
+    this.getStations();
+  setTimeout(() => {
+    console.log('Async operation has ended');
+    refresher.complete();
+
+  }, 2000);
+}
 }
