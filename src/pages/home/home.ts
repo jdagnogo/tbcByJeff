@@ -10,7 +10,7 @@ import { Parser} from '../../app/utils/utils';
 })
 export class HomePage {
   private parser: Parser;
-  public stations: Station[];
+  public station: Station;
 
   constructor(public navCtrl: NavController, private navitiaService: NavitiaService) {
   }
@@ -22,7 +22,7 @@ export class HomePage {
   public getStations(): void {
     this.navitiaService
       .getStations()
-      .subscribe((data: any) => this.parser.parse(data),
+      .subscribe((data: any) => this.station = this.parser.parse(data),
       error => console.log(error),
       () => console.log('Get all Stations complete'));
   }
