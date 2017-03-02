@@ -7,8 +7,8 @@ import { Station } from '../../model/model';
 
 @Injectable()
 export class NavitiaService {
-  private baseStopArea = 'stop_areas/stop_area:';
-  private baseUrl = 'https://api.navitia.io/v1/coverage/fr-sw/stop_areas/stop_area:OBX:SA:NICOL/stop_schedules';
+  private baseStopSchedules = '/stop_schedules';
+  private baseUrl = 'https://api.navitia.io/v1/coverage/fr-sw/stop_areas/stop_area:OBX:SA:';
   private bergonie_url = '';
 
   private API_Key = '5f25d1a6-635f-4d67-bfe4-ec013661252f';
@@ -21,8 +21,8 @@ export class NavitiaService {
 
   }
 
-  getStations(): Observable<Station[]> {
-    return this.http.get(this.baseUrl, { headers: this.headers })
+  getStations(link:string): Observable<Station[]> {
+    return this.http.get(this.baseUrl+link+this.baseStopSchedules, { headers: this.headers })
       .map(this.extractData)
       .catch(this.handleError);
   }

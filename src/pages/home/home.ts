@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Station }       from '../../app/model/model';
-import { NavController,ToastController } from 'ionic-angular';
+import { NavController, ToastController, NavParams} from 'ionic-angular';
 import { NavitiaService } from '../../app/services/services';
 import { Parser} from '../../app/utils/utils';
 import {NFC, Ndef} from 'ionic-native';
@@ -12,22 +12,44 @@ import {NFC, Ndef} from 'ionic-native';
 })
 export class HomePage {
   private parser: Parser;
+  public static BERGO: string = "BERGO";
   public station: Station;
+  private link: string = "NICOL";
   public stationRetour: Station;
 
-  constructor(public navCtrl: NavController, private navitiaService: NavitiaService,private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, private navitiaService: NavitiaService, private toastCtrl: ToastController, public params: NavParams) {
   }
   ionViewWillEnter() {
     this.parser = new Parser;
-    this.getStations();
+
+    this.link = this.params.data.link;
+    if (this.link == null) {
+      this.getBergoStations("NICOL");
+    }
+    else {
+      this.getStations(this.link);
+    }
+
   }
 
-  public getStations(): void {
+  public getStations(link: string): void {
     this.navitiaService
-      .getStations()
+      .getStations(link)
       .subscribe((data: any) => {
-        this.station = this.parser.parse(data,0);
-        this.stationRetour = this.parser.parse(data,1);
+        this.station = this.parser.parse(data, 0);
+        this.stationRetour = this.parser.parse(data, 1);
+
+      },
+      error => console.log(error),
+      () => console.log('Get all Stations complete'));
+  }
+
+  public getBergoStations(link: string): void {
+    this.navitiaService
+      .getStations(link)
+      .subscribe((data: any) => {
+        this.station = this.parser.parse(data, 0);
+        this.stationRetour = this.parser.parse(data, 1);
 
       },
       error => console.log(error),
@@ -35,7 +57,7 @@ export class HomePage {
   }
 
   doRefresh(refresher) {
-    this.getStations();
+    this.getStations(this.link);
     setTimeout(() => {
       console.log('Async operation has ended');
       refresher.complete();

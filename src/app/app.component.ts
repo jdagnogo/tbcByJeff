@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform ,MenuController} from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/pages.ts';
@@ -11,12 +11,9 @@ import { HomePage } from '../pages/pages.ts';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = HomePage;
-  pages: Array<{ title: string, component: any }>;
-  constructor(public platform: Platform) {
+
+  constructor(public platform: Platform, public menuCtrl: MenuController) {
     this.initializeApp();
-    this.pages = [
-      { title: 'Home', component: HomePage }
-    ];
   }
 
 
@@ -28,10 +25,18 @@ export class MyApp {
       Splashscreen.hide();
     });
   }
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  openMenu() {
+    this.menuCtrl.open();
+  }
+  goStNicolas() {
+      this.nav.push(HomePage,{ link: "NICOL" });
+    }
+  goBergonie(){
+    this.nav.push(HomePage,{ link: "BERGO" });
+  }
+
+  goUnitec(){
+    this.nav.push(HomePage,{ link: "UNITE" });
   }
 
 
