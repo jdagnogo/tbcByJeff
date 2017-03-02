@@ -15,6 +15,7 @@ export class HomePage {
   public static BERGO: string = "BERGO";
   public stations: Station[];
   private link: string;
+  private nfcString: string ;
   private stationName:string;
 
   constructor(public navCtrl: NavController, private navitiaService: NavitiaService, private toastCtrl: ToastController, public params: NavParams) {
@@ -27,6 +28,7 @@ export class HomePage {
       this.link = "NICOL";
     }
     this.getStations(this.link);
+    this.addNfcListeners();
   }
 
   public getStations(link: string): void {
@@ -48,5 +50,15 @@ export class HomePage {
 
     }, 2000);
   }
+  addNfcListeners():void {
+        NFC.addTagDiscoveredListener((tagEvent:Event) => this.tagListenerSuccess(tagEvent),(tagEvent:Event)=>this.tagListenerSuccess(tagEvent));
+        NFC.addNdefListener((tagEvent:Event) => this.tagListenerSuccess(tagEvent),(tagEvent:Event)=>this.tagListenerSuccess(tagEvent));
+    }
 
+    tagListenerSuccess(tagEvent:Event) {
+      console.log('data : toto');
+      let data:string = JSON.stringify(tagEvent);
+     this.nfcString = data;
+
+   }
 }
