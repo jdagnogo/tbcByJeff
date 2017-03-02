@@ -21,7 +21,7 @@ export class NavitiaService {
 
   }
 
-  getStations(link:string): Observable<Station[]> {
+  getStations(link:string): Observable<string> {
     return this.http.get(this.baseUrl+link+this.baseStopSchedules, { headers: this.headers })
       .map(this.extractData)
       .catch(this.handleError);

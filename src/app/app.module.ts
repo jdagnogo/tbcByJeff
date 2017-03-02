@@ -2,12 +2,13 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { NavitiaService } from './services/services';
-import { HomePage } from '../pages/pages.ts';
+import { HomePage,SearchPage } from '../pages/pages.ts';
 
 
 @NgModule({
   declarations: [
     MyApp,
+    SearchPage,
     HomePage,
   ],
   imports: [
@@ -16,6 +17,7 @@ import { HomePage } from '../pages/pages.ts';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    SearchPage,
     HomePage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},NavitiaService]

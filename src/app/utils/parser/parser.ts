@@ -1,25 +1,40 @@
 import { Station } from '../../model/model';
 export class Parser {
-private static Nb_PASSAGE:number = 3;
+  private static Nb_PASSAGE: number = 3;
+  private static TRAMWAY: string = "Tramway";
   constructor() { }
 
-  public parse(obj: string,i:number): Station {
-    let schedule: any = this.parseSchedules(obj, i);
-    let nom = this.parseName(schedule);
-    let dates = this.parseDate(schedule);
-    let direction = this.parseDirection(schedule);
-    let station:Station = new Station(nom, direction, dates);
-    console.log('station '+ station.toString());
-    return station;
+  public parse(obj: string): Station[] {
+    let schedules: any = this.parseSchedules(obj);
+    let stations: Array<Station> = new Array();
+
+    for (var schedule of schedules) {
+      let physicalMode: string = this.parsePhysicalMode(schedule);
+      if (physicalMode == Parser.TRAMWAY) {
+        let nom = this.parseName(schedule);
+        let dates = this.parseDate(schedule);
+        let direction = this.parseDirection(schedule);
+        let station: Station = new Station(nom, direction, dates);
+        stations.push(station);
+      }
+    }
+
+    return stations;
+  }
+
+  private parsePhysicalMode(schedule: any): string {
+    return schedule.stop_point.physical_modes[0].name;
   }
 
   private parseDate(schedule: any): Array<Date> {
     let dates: Array<Date> = new Array<Date>();
     let date_times: any = schedule.date_times;
-    for (var i = 0; i < Parser.Nb_PASSAGE; i++) {
-      let date_time = date_times[i].date_time;
-      let date = JSON.stringify(date_time);
-      dates.push(this.formatDate(date));
+    if (date_times.length > 0) {
+      for (var i = 0; i < Parser.Nb_PASSAGE; i++) {
+        let date_time = date_times[i].date_time;
+        let date = JSON.stringify(date_time);
+        dates.push(this.formatDate(date));
+      }
     }
     return dates;
   }
@@ -43,8 +58,7 @@ private static Nb_PASSAGE:number = 3;
     name = JSON.stringify(schedule.stop_point.name);
     return name;
   }
-  private parseSchedules(obj: string, j: number): any {
-    let schedules = JSON.parse(obj).stop_schedules;
-    return schedules[j];
+  private parseSchedules(obj: string): any {
+    return JSON.parse(obj).stop_schedules;
   }
 }

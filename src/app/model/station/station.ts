@@ -1,7 +1,6 @@
 export class Station {
 
   private nom: string;
-  private id_navitia: string;
   private direction: string;
   private prochainPassage: Array<Date>;
 

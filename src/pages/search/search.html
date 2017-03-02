@@ -12,6 +12,15 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+
+  <ion-item>
+    <ion-label>Stations de tram  </ion-label>
+    <ion-select [(ngModel)]="tramways.nom" (ionChange)="tramSelected($event)">
+      <ion-option *ngFor="let tramway of tramways" value={{tramway.id_navitia}}>{{tramway.nom}}</ion-option>
+    </ion-select>
+  </ion-item>
+
   <div *ngFor="let station of stations">
 
     <ion-card>
@@ -26,9 +35,9 @@
           <p> Prochain passage à : {{passage | date: 'HH:mm'}}</p>
         </ion-card-content>
       </div>
+
     </ion-card>
 
   </div>
-
 
 </ion-content>

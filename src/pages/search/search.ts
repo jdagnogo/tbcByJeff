@@ -1,31 +1,38 @@
 import { Component } from '@angular/core';
-import { Station }       from '../../app/model/model';
+import { Station, Tramway}       from '../../app/model/model';
 import { NavController, ToastController, NavParams} from 'ionic-angular';
 import { NavitiaService } from '../../app/services/services';
 import { Parser} from '../../app/utils/utils';
-import {NFC, Ndef} from 'ionic-native';
-
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-search',
+  templateUrl: 'search.html'
 })
-export class HomePage {
+export class SearchPage {
   private parser: Parser;
-  public static BERGO: string = "BERGO";
   public stations: Station[];
+  public tramways: Tramway[];
   private link: string;
-
   constructor(public navCtrl: NavController, private navitiaService: NavitiaService, private toastCtrl: ToastController, public params: NavParams) {
+
+    this.tramways = [
+
+      new Tramway("Hôtel de Ville", "HDVA"),
+      new Tramway("Jardin Public", "JPUBL"),
+      new Tramway("Stade Chaban Delmas", "CDELM"),
+      new Tramway("Gare Saint-Jean", "SJEAN"),
+      new Tramway("Hôpital Pellegrin", "HOPIT"),
+      new Tramway("Hôtel de Police", "POLIC"),
+      new Tramway("Quinconces (tram B)", "QUIN_B"),
+      new Tramway("Victoire", "VICTO"),
+      new Tramway("France Alouette", "TALOU"),
+      new Tramway("Forum", "FORUM"),
+      new Tramway("Peixotto", "PEIXOT"),
+    ]
   }
+
   ionViewWillEnter() {
     this.parser = new Parser;
-
-    this.link = this.params.data.link;
-    if (this.link == null) {
-      this.link = "NICOL";
-    }
-    this.getStations(this.link);
   }
 
   public getStations(link: string): void {
@@ -37,14 +44,9 @@ export class HomePage {
       error => console.log(error),
       () => console.log('Get all Stations complete'));
   }
-
-  doRefresh(refresher) {
-    this.getStations(this.link);
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-
-    }, 2000);
+  tramSelected(event) {
+    console.log("item selected : " + event);
+    this.getStations(event);
   }
 
 }
