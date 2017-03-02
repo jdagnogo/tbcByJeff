@@ -12,14 +12,16 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <div  class="center">
+    <p>
+      {{stationName}}
+    </p>
+  </div>
   <div *ngFor="let station of stations">
 
     <ion-card>
-      <ion-card-header>
-        <ion-item>
-          <p>Direction : {{ station.direction }}</p>
-
-        </ion-item>
+      <ion-card-header color="primary">
+          Direction : {{ station.direction }}
       </ion-card-header>
       <div *ngFor="let passage of station.prochainPassage">
         <ion-card-content>

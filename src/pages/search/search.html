@@ -24,11 +24,9 @@
   <div *ngFor="let station of stations">
 
     <ion-card>
-      <ion-card-header>
-        <ion-item>
+      <ion-card-header color="primary">
           <p>Direction : {{ station.direction }}</p>
 
-        </ion-item>
       </ion-card-header>
       <div *ngFor="let passage of station.prochainPassage">
         <ion-card-content>

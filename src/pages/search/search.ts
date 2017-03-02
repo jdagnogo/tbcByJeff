@@ -31,6 +31,8 @@ export class SearchPage {
     ]
   }
 
+
+
   ionViewWillEnter() {
     this.parser = new Parser;
   }
@@ -44,8 +46,19 @@ export class SearchPage {
       error => console.log(error),
       () => console.log('Get all Stations complete'));
   }
+
+  doRefresh(refresher) {
+    this.getStations(this.link);
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+
+    }, 2000);
+  }
+
   tramSelected(event) {
     console.log("item selected : " + event);
+    this.link= event;
     this.getStations(event);
   }
 

@@ -15,6 +15,7 @@ export class HomePage {
   public static BERGO: string = "BERGO";
   public stations: Station[];
   private link: string;
+  private stationName:string;
 
   constructor(public navCtrl: NavController, private navitiaService: NavitiaService, private toastCtrl: ToastController, public params: NavParams) {
   }
@@ -33,6 +34,7 @@ export class HomePage {
       .getStations(link)
       .subscribe((data: string) => {
         this.stations = this.parser.parse(data);
+        this.stationName = this.stations[1].nom;
       },
       error => console.log(error),
       () => console.log('Get all Stations complete'));

@@ -1,6 +1,6 @@
 export class Station {
 
-  private nom: string;
+  public nom: string;
   private direction: string;
   private prochainPassage: Array<Date>;
 
