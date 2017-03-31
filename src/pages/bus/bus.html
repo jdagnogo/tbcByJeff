@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>parseSchedules</ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div  class="center">
+    <p>
+      {{stationName}}
+      {{nfcString}}
+    </p>
+  </div>
+  <div *ngFor="let station of stations">
+
+    <ion-card>
+      <ion-card-header color="primary">
+          Direction : {{ station.direction }}
+      </ion-card-header>
+      <div *ngFor="let passage of station.prochainPassage">
+        <ion-card-content>
+          <p> Prochain passage à : {{passage | date: 'HH:mm'}}</p>
+        </ion-card-content>
+      </div>
+    </ion-card>
+
+  </div>
+
+
+</ion-content>
