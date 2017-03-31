@@ -2,6 +2,7 @@ import { Station } from '../../model/model';
 export class Parser {
   private static Nb_PASSAGE: number = 3;
   private static TRAMWAY: string = "Tramway";
+  private static BUS:string = "Bus";
   constructor() { }
 
   public parse(obj: string): Station[] {
@@ -11,6 +12,25 @@ export class Parser {
     for (var schedule of schedules) {
       let physicalMode: string = this.parsePhysicalMode(schedule);
       if (physicalMode == Parser.TRAMWAY) {
+        let nom = this.parseName(schedule);
+        let dates = this.parseDate(schedule);
+        let direction = this.parseDirection(schedule);
+        let station: Station = new Station(nom, direction, dates);
+        stations.push(station);
+      }
+    }
+
+    return stations;
+  }
+  public parseBus(obj: string): Station[] {
+    console.log('tout '+ obj);
+    let schedules: any = this.parseSchedules(obj);
+      console.log('schedules '+ schedules);
+    let stations: Array<Station> = new Array();
+
+    for (var schedule of schedules) {
+      let physicalMode: string = this.parsePhysicalMode(schedule);
+      if (physicalMode == Parser.BUS) {
         let nom = this.parseName(schedule);
         let dates = this.parseDate(schedule);
         let direction = this.parseDirection(schedule);

@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { NavitiaService } from './services/services';
-import { HomePage,SearchPage } from '../pages/pages.ts';
+import { HomePage,SearchPage,BusPage } from '../pages/pages.ts';
 
 
 @NgModule({
@@ -10,6 +10,7 @@ import { HomePage,SearchPage } from '../pages/pages.ts';
     MyApp,
     SearchPage,
     HomePage,
+    BusPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -19,6 +20,7 @@ import { HomePage,SearchPage } from '../pages/pages.ts';
     MyApp,
     SearchPage,
     HomePage,
+    BusPage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},NavitiaService]
 })

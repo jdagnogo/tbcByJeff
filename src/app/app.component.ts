@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform ,MenuController} from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { HomePage,SearchPage } from '../pages/pages.ts';
+import { HomePage,SearchPage,BusPage} from '../pages/pages.ts';
 
 
 @Component({
@@ -37,6 +37,10 @@ export class MyApp {
 
   goUnitec(){
     this.nav.push(HomePage,{ link: "SAIGE" });
+  }
+
+  goBus1(){
+    this.nav.push(BusPage);
   }
 
   goSearch(){

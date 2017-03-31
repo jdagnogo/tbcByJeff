@@ -10,6 +10,7 @@ export class NavitiaService {
   private baseStopSchedules = '/stop_schedules';
   private baseUrl = 'https://api.navitia.io/v1/coverage/fr-sw/stop_areas/stop_area:OBX:SA:';
   private bergonie_url = '';
+  private busUrl = "https://api.navitia.io/v1/coverage/fr-sw/lines/line:OBO:01/stop_areas/stop_area:O33:SA:11332/stop_schedules";
 
   private API_Key = '5f25d1a6-635f-4d67-bfe4-ec013661252f';
   //https://api.navitia.io/v1/coverage/fr-sw/stop_areas/stop_area:OBX:SA:NICOL/stop_schedules
@@ -26,11 +27,16 @@ export class NavitiaService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-
+  getHours(): Observable<string> {
+    return this.http.get(this.busUrl, { headers: this.headers })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
   private extractData(res: Response): any {
     if (res.status < 200 || res.status >= 300) {
       throw new Error('Bad response status: ' + res.status);
     }
+    console.log('res : '+JSON.stringify(res.json()));
     return JSON.stringify(res.json());
 
   }
